@@ -13,10 +13,11 @@ T* LoadFromBinary(const char* filename)
     if (file.is_open())
     {
         std::streampos Size = file.tellg();
-        int ItemCount = (int)Size/sizeof(T);
+        unsigned int ItemCount = (unsigned int)Size/sizeof(T);
         Data = new T[ItemCount];
         file.seekg(0,std::ios::beg);
         file.read((char*)Data, Size);
+        file.close();
         return Data;
     }
     else

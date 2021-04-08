@@ -8,7 +8,9 @@ I wrote this to load 16 bit unsigned integers, so my usage looks like this:
 #include \<utility> // included for std::pair
 
 const char* file = "path/to/file.txt";\
-std::pair <unsigned long int, uint16_t*> Data = LoadFromBinary<uint16_t>(file);
+std::pair <unsigned long int, uint16_t*> Data = LoadFromBinary<uint16_t>(file); 
+
+//Data.first (unsigned long int) is the number of elements in the loaded set. Data.second (uint16_t*) is the pointer to the data
 
 // perform some operations on the loaded data
 

@@ -4,9 +4,10 @@
 #include <fstream>
 #include <cstdint>
 #include <iostream>
+#include <utility>
 
 template <typename T>
-T* LoadFromBinary(const char* filename)
+std::pair <unsigned long int, T*> LoadFromBinary(const char* filename)
 {
     std::ifstream file(filename, std::ios::in|std::ios::binary|std::ios::ate);
     T* Data;
@@ -15,15 +16,15 @@ T* LoadFromBinary(const char* filename)
         std::streampos Size = file.tellg();
         unsigned int ItemCount = (unsigned int)Size/sizeof(T);
         Data = new T[ItemCount];
-        file.seekg(0,std::ios::beg);
+        file.seekg(0, std::ios::beg);
         file.read((char*)Data, Size);
         file.close();
-        return Data;
+        return std::make_pair(ItemCount, Data);
     }
     else
     {
         std::cout << "Error opening file" << std::endl;
-        return nullptr;
+        return std::make_pair(0, nullptr);
     }
 }
 #endif
